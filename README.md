@@ -149,8 +149,6 @@ Example:
 ...     print(user)
 
 {'name': 'Eva Bravo', 'screen_name': 'EvaBravoBarco', 'id': '1116022190154113030'}
-{'name': 'Agustín Rosety Fernández de Castro', 'screen_name': 'AgustinRosety', 'id': '1115297214325194755'}
-{'name': 'Juan Cuatrecasas Asúa', 'screen_name': 'CuatrecasasJuan', 'id': '1111604643409391624'}
 {'name': 'Juan José Cortés', 'screen_name': 'JuanjoCortesHu', 'id': '1110994911741050888'}
 {'name': 'José Ignacio Echániz', 'screen_name': 'JIEchaniz', 'id': '1110628846242594820'}
 
@@ -167,8 +165,6 @@ Example:
 ...     print(username)
 
 alfonsopmedina
-aormaechea
-kricaceres
 juancarlosgp_
 lafuentejuancar
 
@@ -186,8 +182,6 @@ Example:
 ...     print(username)
 
 jsierradelarosa
-1981Alberto
-TebaChacon
 lafuentejuancar
 crismadrid011
 
