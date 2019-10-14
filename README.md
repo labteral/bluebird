@@ -120,13 +120,13 @@ query = {
 ## Search
 Search for the last 20 results:
 ```python
-for tweet in TwitterScraper.search(query)
+for tweet in TwitterScraper.search(query):
     print(tweet)
 ```
 
 Search for all the available results:
 ```python
-for tweet in TwitterScraper.search(query, deep=True)
+for tweet in TwitterScraper.search(query, deep=True):
     print(tweet)
 ```
 
