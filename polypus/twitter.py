@@ -201,7 +201,7 @@ class TwitterScraper:
         return encoded_query
 
     @staticmethod
-    def stream(query):
+    def stream(query, sleep_time=1):
         known_tweets = CircularOrderedSet(50)
         while True:
             try:
@@ -210,7 +210,8 @@ class TwitterScraper:
                         known_tweets.add(tweet['id'])
                         yield tweet
             except Exception:
-                time.sleep(1)
+                pass
+            time.sleep(sleep_time)
 
     @staticmethod
     def search(query, deep=False):
