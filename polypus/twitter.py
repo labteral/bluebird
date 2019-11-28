@@ -28,11 +28,12 @@ class TwitterHttpHelper(HttpHelper):
         ]
 
         chrome_version_lines = [
+            '78.0.3904.87',
             '77.0.3865.90',
             '75.0.3770.100',
-            '60.0.3112.113'
+            '60.0.3112.113',
             '60.0.3112.90',
-            '57.0.2987.133'
+            '57.0.2987.133',
             '55.0.2883.87',
             '44.0.2403.157',
         ]
@@ -197,31 +198,27 @@ class TwitterScraper:
         if lang is not None:
             encoded_query += f'&l={lang}'
 
-        print(f'[Test URL] https://twitter.com/search?q={encoded_query}')
+        print(f'[Test URL] https://twitter.com/search?f=tweets&vertical=default&q={encoded_query}')
         return encoded_query
 
     @staticmethod
-    def stream(query, sleep_time=1):
-        known_tweets = CircularOrderedSet(50)
-        while True:
-            try:
-                for tweet in TwitterScraper.search(query):
-                    if tweet['id'] not in known_tweets:
-                        known_tweets.add(tweet['id'])
-                        yield tweet
-            except Exception:
-                pass
-            time.sleep(sleep_time)
+    def _get_tweets(base_url, deep, sleep_time, query_type):
+        if query_type == 'user':
+            position = ''
+        elif query_type == 'search':
+            position = '&max_position=-1'
 
-    @staticmethod
-    def search(query, deep=False):
-        query = TwitterScraper._encode_query(query)
+        if not '?' in base_url:
+            base_url += '?'
+        else:
+            base_url += '&'
+        base_url += 'include_available_features=1&include_entities=1'
 
         has_more_items = True
-        min_position = -1
-
         while has_more_items:
-            url = f'https://twitter.com/i/search/timeline?f=tweets&vertical=news&q={query}&src=typd&include_available_features=1&include_entities=1&max_position={min_position}&reset_error_state=false'
+            url = f'{base_url}{position}&reset_error_state=false'
+            print(f'[URL] {url}')
+
             done = False
             while not done:
                 try:
@@ -232,7 +229,11 @@ class TwitterScraper:
 
             items_html = content['items_html']
             has_more_items = content['has_more_items']
-            min_position = content['min_position']
+
+            if 'min_position' in content:
+                position = f"&max_position={content['min_position']}"
+            else:
+                continue
 
             try:
                 root = document_fromstring(items_html)
@@ -270,6 +271,38 @@ class TwitterScraper:
                     'url': f'https://twitter.com/{screen_name}/status/{tweet_id}',
                 }
                 yield tweet
+
+            if deep:
+                time.sleep(sleep_time)
+
+    @staticmethod
+    def user_tweets(username, deep=False, sleep_time=1):
+        base_url = f'https://twitter.com/i/profiles/show/{username}/timeline/tweets'
+        yield from TwitterScraper._get_tweets(base_url, deep, sleep_time, 'user')
+
+    # @staticmethod
+    # def user_replies(username, deep=False, sleep_time=1):
+    #     base_url = f'https://twitter.com/i/profiles/show/{username}/timeline/tweets'
+    #     yield from TwitterScraper._get_tweets(base_url, deep, sleep_time, 'user')
+
+    @staticmethod
+    def stream(query, sleep_time=1):
+        known_tweets = CircularOrderedSet(50)
+        while True:
+            try:
+                for tweet in TwitterScraper.search(query):
+                    if tweet['id'] not in known_tweets:
+                        known_tweets.add(tweet['id'])
+                        yield tweet
+            except Exception:
+                pass
+            time.sleep(sleep_time)
+
+    @staticmethod
+    def search(query, deep=False, sleep_time=1):
+        encoded_query = TwitterScraper._encode_query(query)
+        base_url = f'https://twitter.com/i/search/timeline?f=tweets&vertical=news&q={encoded_query}&src=typd'
+        yield from TwitterScraper._get_tweets(base_url, deep, sleep_time, 'search')
 
     @staticmethod
     def get_list_members(username, list_name):
