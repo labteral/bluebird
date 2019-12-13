@@ -120,13 +120,13 @@ query = {
 ## Search
 Search for the last 20 results:
 ```python
-for tweet in TwitterScraper.search(query):
+for tweet in TwitterScraper().search(query):
     print(tweet)
 ```
 
 Search for all the available results:
 ```python
-for tweet in TwitterScraper.search(query, deep=True):
+for tweet in TwitterScraper().search(query, deep=True):
     print(tweet)
 ```
 
@@ -134,18 +134,18 @@ for tweet in TwitterScraper.search(query, deep=True):
 ## Stream
 Search constantly for new results:
 ```python
-for tweet in TwitterScraper.stream(query)
+for tweet in TwitterScraper().stream(query)
     print(tweet)
 ```
 ## List members
 
 
 ```python
-TwitterScraper.get_list_members(username, list_name)
+TwitterScraper().get_list_members(username, list_name)
 ```
 Example:
 ```python
->>> for user in TwitterScraper.get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
+>>> for user in TwitterScraper().get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
 ...     print(user)
 
 {'name': 'Eva Bravo', 'screen_name': 'EvaBravoBarco', 'id': '1116022190154113030'}
@@ -157,11 +157,11 @@ Example:
 
 ## Followings
 ```python
-TwitterScraper.get_followings(username, list_name)
+TwitterScraper().get_followings(username, list_name)
 ```
 Example:
 ```python
->>> for username in TwitterScraper.get_followings('dalvarez37'):
+>>> for username in TwitterScraper().get_followings('dalvarez37'):
 ...     print(username)
 
 alfonsopmedina
@@ -174,11 +174,11 @@ lafuentejuancar
 
 ## Followers
 ```python
-TwitterScraper.get_followers(username, list_name)
+TwitterScraper().get_followers(username, list_name)
 ```
 Example:
 ```python
->>> for username in TwitterScraper.get_followers('dalvarez37'):
+>>> for username in TwitterScraper().get_followers('dalvarez37'):
 ...     print(username)
 
 jsierradelarosa

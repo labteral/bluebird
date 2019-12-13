@@ -3,4 +3,4 @@
 
 from .twitter import TwitterScraper
 
-__version__ = '0.0.2a'
+__version__ = '0.0.3a'

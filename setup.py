@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
+from setuptools import find_packages
 import polypus
 
 setup(name='polypus',
@@ -11,7 +12,7 @@ setup(name='polypus',
       author='Rodrigo Martínez',
       author_email='dev@brunneis.com',
       license='GNU General Public License v3.0',
-      packages=['polypus'],
+      packages=find_packages(),
       zip_safe=False,
       classifiers=[
           "Development Status :: 4 - Beta",
