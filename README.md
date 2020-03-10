@@ -157,7 +157,7 @@ Example:
 
 ## Followings
 ```python
-TwitterScraper().get_followings(username, list_name)
+TwitterScraper().get_followings(username)
 ```
 Example:
 ```python
@@ -174,7 +174,7 @@ lafuentejuancar
 
 ## Followers
 ```python
-TwitterScraper().get_followers(username, list_name)
+TwitterScraper().get_followers(username)
 ```
 Example:
 ```python
