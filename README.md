@@ -1,23 +1,35 @@
-# Polypus
+<h1 align="center">
+<b>bluebird</b>
+</h1>
 
-Polypus is a multi-threaded Web scraper built and designed originally in 2014 for massive text extraction from Twitter. It was implemented in Java 8. Its purpose was to replace the Twitter Firehose API collecting massive amounts of tweets in real time without specifying any target. In [this paper](https://arxiv.org/pdf/1801.03710.pdf) its functioning is explained in detail.
+<h3 align="center">
+<b>An unofficial Twitter SDK for Python</b>
+</h3>
 
-Polypus 5, released in 2019, is a Python library for social media scraping. It supports Twitter and will support Reddit in the short term. You can expect future support for Instagram and LinkedIn in the future. Currently, the original Polypus software is discontinued. A Polypus 5 firehose alike horizontal scalable system will be implemented with the [Catenae Framework](https://github.com/catenae) in the short term.
+<p align="center">
+    <a href="https://pepy.tech/project/bluebird/"><img alt="Downloads" src="https://img.shields.io/badge/dynamic/json?style=flat-square&maxAge=3600&label=downloads&query=$.total_downloads&url=https://api.pepy.tech/api/projects/bluebird"></a>
+    <a href="https://pypi.python.org/pypi/bluebird/"><img alt="PyPi" src="https://img.shields.io/pypi/v/bluebird.svg?style=flat-square"></a>
+    <!--<a href="https://github.com/brunneis/pygram/releases"><img alt="GitHub releases" src="https://img.shields.io/github/release/brunneis/bluebird.svg?style=flat-square"></a>-->
+    <a href="https://github.com/brunneis/bluebird/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/brunneis/bluebird.svg?style=flat-square&color=green"></a>
+</p>
 
+<p align="center">
+    <a href="https://www.buymeacoffee.com/brunneis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="35px"></a>
+</p>
 
 # Installation
-> Polypus only works with Python +3.7
+> bluebird works with Python +3.7
 
-You can install the `polypus` package directly with `pip` / `pip3`:
+You can install the `bluebird` package directly with `pip` / `pip3`:
 ```bash
-pip install polypus
+pip install bluebird
 ```
 
 # Twitter
 To work with the Twitter Scraper module you have to import the corresponding module first:
 
 ```python
-from polypus import TwitterScraper
+from bluebird import BlueBird
 ```
 
 The available methods and its usage are described below.
@@ -60,7 +72,7 @@ If not specified, the tweets will match every item.
 - `'none'` (the tweets won't match any item)
 
 #### target
-If not specified the
+If not specified, the tweets will match ordinary keywords.
 - `'hashtag'` (tweets containing `#item`)
 - `'mention'` (tweets mentioning `@item`)
 - `'from'` (tweets written by `@item`)
@@ -120,13 +132,13 @@ query = {
 ## Search
 Search for the last 20 results:
 ```python
-for tweet in TwitterScraper().search(query):
+for tweet in BlueBird().search(query):
     print(tweet)
 ```
 
 Search for all the available results:
 ```python
-for tweet in TwitterScraper().search(query, deep=True):
+for tweet in BlueBird().search(query, deep=True):
     print(tweet)
 ```
 
@@ -134,18 +146,18 @@ for tweet in TwitterScraper().search(query, deep=True):
 ## Stream
 Search constantly for new results:
 ```python
-for tweet in TwitterScraper().stream(query)
+for tweet in BlueBird().stream(query)
     print(tweet)
 ```
 ## List members
 
 
 ```python
-TwitterScraper().get_list_members(username, list_name)
+BlueBird().get_list_members(username, list_name)
 ```
 Example:
 ```python
->>> for user in TwitterScraper().get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
+>>> for user in BlueBird().get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
 ...     print(user)
 
 {'name': 'Eva Bravo', 'screen_name': 'EvaBravoBarco', 'id': '1116022190154113030'}
@@ -157,11 +169,11 @@ Example:
 
 ## Followings
 ```python
-TwitterScraper().get_followings(username)
+BlueBird().get_followings(username)
 ```
 Example:
 ```python
->>> for username in TwitterScraper().get_followings('dalvarez37'):
+>>> for username in BlueBird().get_followings('dalvarez37'):
 ...     print(username)
 
 alfonsopmedina
@@ -174,11 +186,11 @@ lafuentejuancar
 
 ## Followers
 ```python
-TwitterScraper().get_followers(username)
+BlueBird().get_followers(username)
 ```
 Example:
 ```python
->>> for username in TwitterScraper().get_followers('dalvarez37'):
+>>> for username in BlueBird().get_followers('dalvarez37'):
 ...     print(username)
 
 jsierradelarosa
@@ -187,12 +199,3 @@ crismadrid011
 
 ...
 ```
-
-# Reddit
-> Not yet available
-
-# Instagram
-> Not yet available
-
-# LinkedIn
-> Not yet available
