@@ -170,6 +170,10 @@ class BlueBird:
         if 'lang' in query:
             lang = query['lang']
 
+        match = None
+        if 'match' in query:
+            match = query['match']
+
         fields = []
         if 'fields' in query:
             fields = query['fields']
@@ -181,9 +185,9 @@ class BlueBird:
 
             items = field['items']
 
-            match = None
+            field_match = None
             if 'match' in field:
-                match = field['match']
+                field_match = field['match']
 
             exact = False
             if 'exact' in field:
@@ -207,12 +211,19 @@ class BlueBird:
                 else:
                     marginal_query = ' '.join(items)
 
-            if match == 'any':
+            if field_match == 'any':
                 marginal_query = ' OR '.join(marginal_query.split())
-            elif match == 'none':
+            elif field_match == 'none':
                 marginal_query = '-' + ' -'.join(marginal_query.split())
 
-            encoded_query += ' ' + marginal_query
+            if match == 'any':
+                if encoded_query:
+                    encoded_query += ' OR ' + marginal_query
+                else:
+                    encoded_query = marginal_query
+            else:
+                encoded_query += ' ' + marginal_query
+
 
         if since is not None:
             encoded_query += f' since:{since}'
