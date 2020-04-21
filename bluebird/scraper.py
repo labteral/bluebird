@@ -25,7 +25,7 @@ class CircularOrderedSet(OrderedSet):
             self.pop(last=False)
 
 
-class TwitterScraper:
+class BlueBird:
 
     API_WEB = 'web'
     API_1_1 = '1_1'
@@ -44,17 +44,17 @@ class TwitterScraper:
 
     @staticmethod
     def get_emojis(text):
-        return re.findall(TwitterScraper.emoji_regex, text)
+        return re.findall(BlueBird.emoji_regex, text)
 
     @staticmethod
     def get_tagged_html(text):
-        return re.sub(TwitterScraper.img_regex, f'  {TwitterScraper.emoji_flag}  ', text)
+        return re.sub(BlueBird.img_regex, f'  {BlueBird.emoji_flag}  ', text)
 
     @staticmethod
     def insert_emojis(emojis, text):
         for emoji in emojis:
-            text = text.replace(f' {TwitterScraper.emoji_flag} ', emoji, 1)
-        text = text.replace(f' {TwitterScraper.emoji_flag} ', '')
+            text = text.replace(f' {BlueBird.emoji_flag} ', emoji, 1)
+        text = text.replace(f' {BlueBird.emoji_flag} ', '')
         return text
 
     @staticmethod
@@ -65,16 +65,16 @@ class TwitterScraper:
 
     @staticmethod
     def get_processed_text(html_content):
-        emojis = TwitterScraper.get_emojis(html_content)
-        tagged_html = TwitterScraper.get_tagged_html(html_content)
+        emojis = BlueBird.get_emojis(html_content)
+        tagged_html = BlueBird.get_tagged_html(html_content)
         tagged_text = document_fromstring(tagged_html).text_content()
-        tagged_text_emojis = TwitterScraper.insert_emojis(emojis, tagged_text)
-        text = TwitterScraper.post_process_text(tagged_text_emojis)
+        tagged_text_emojis = BlueBird.insert_emojis(emojis, tagged_text)
+        text = BlueBird.post_process_text(tagged_text_emojis)
         return text.strip()
 
     @staticmethod
     def _get_auth_header(guest_token=None):
-        headers = {'authorization': f'Bearer {TwitterScraper.ACCESS_TOKEN}'}
+        headers = {'authorization': f'Bearer {BlueBird.ACCESS_TOKEN}'}
         if guest_token is not None:
             headers['x-guest-token'] = guest_token
         return headers
@@ -82,7 +82,7 @@ class TwitterScraper:
     @staticmethod
     def _get_guest_token():
         url = 'https://api.twitter.com/1.1/guest/activate.json'
-        headers = TwitterScraper._get_auth_header()
+        headers = BlueBird._get_auth_header()
         response = requests.post(url, headers=headers)
         return response.json()['guest_token']
 
@@ -282,7 +282,7 @@ class TwitterScraper:
                 seen_tweets += 1
 
                 body_html = tostring(tweets_content[i], encoding='unicode')
-                body = TwitterScraper.get_processed_text(body_html)
+                body = BlueBird.get_processed_text(body_html)
                 tweet_id = tweet_data.attrib['data-tweet-id']
                 timestamp = tweets_timestamps[i].attrib['data-time-ms']
                 language = tweets_content[i].attrib['lang']
@@ -319,7 +319,7 @@ class TwitterScraper:
                 time.sleep(sleep_time)
 
     def _search_web(self, query, deep, count, sleep_time, min_tweets):
-        encoded_query = TwitterScraper._encode_query(query)
+        encoded_query = BlueBird._encode_query(query)
         base_url = f'https://twitter.com/i/search/timeline?f=tweets&vertical=news&q={encoded_query}&src=typd'
         yield from self._get_tweets_web(base_url, deep, sleep_time, 'search', min_tweets)
 
@@ -373,12 +373,12 @@ class TwitterScraper:
         if count > 200:
             count = 200
 
-        encoded_query = TwitterScraper._encode_query(query)
+        encoded_query = BlueBird._encode_query(query)
 
         base_url = 'https://api.twitter.com/2/search/adaptive.json'
         params = {'q': encoded_query, 'count': count, 'sorted_by_time': 'true', 'tweet_mode': 'extended'}
 
-        url = TwitterScraper._update_url_with_params(base_url, params)
+        url = BlueBird._update_url_with_params(base_url, params)
         print(url)
 
         yield from self._get_tweets_2(url, deep, sleep_time, min_tweets)
@@ -405,7 +405,7 @@ class TwitterScraper:
             'include_tweet_replies': include_tweet_replies
         }
 
-        url = TwitterScraper._update_url_with_params(url, params)
+        url = BlueBird._update_url_with_params(url, params)
 
         yield from self._get_tweets_2(url, deep, sleep_time, min_tweets)
 
@@ -460,11 +460,11 @@ class TwitterScraper:
         if count > 100:
             count = 100
 
-        encoded_query = TwitterScraper._encode_query(query)
+        encoded_query = BlueBird._encode_query(query)
 
         base_url = 'https://api.twitter.com/1.1/search/tweets.json'
         params = {'q': encoded_query, 'count': count, 'result_type': 'recent', 'include_entities': 'false'}
-        url = TwitterScraper._update_url_with_params(base_url, params)
+        url = BlueBird._update_url_with_params(base_url, params)
 
         yield from self._get_tweets_1_1(url, deep, sleep_time, min_tweets)
 
@@ -484,7 +484,7 @@ class TwitterScraper:
             'exclude_replies': exclude_tweet_replies,
             'count': count
         }
-        url = TwitterScraper._update_url_with_params(base_url, params)
+        url = BlueBird._update_url_with_params(base_url, params)
 
         yield from self._get_tweets_1_1(url, deep, sleep_time, min_tweets)
 
@@ -543,11 +543,11 @@ class TwitterScraper:
 
     @staticmethod
     def get_followings(username):
-        return TwitterScraper.get_followx(username, target='followings')
+        return BlueBird.get_followx(username, target='followings')
 
     @staticmethod
     def get_followers(username):
-        return TwitterScraper.get_followx(username, target='followers')
+        return BlueBird.get_followx(username, target='followers')
 
     @staticmethod
     def get_followx(username, target):

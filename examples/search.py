@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from polypus import TwitterScraper
+from bluebird import BlueBird
 
 query = {
     'fields': [
@@ -9,5 +9,5 @@ query = {
     ]
 }
 
-for tweet in TwitterScraper().search(query, deep=True):
+for tweet in BlueBird().search(query, deep=True):
     print(tweet)

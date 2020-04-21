@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from polypus import TwitterScraper
+from bluebird import BlueBird
 
 
-for username in TwitterScraper().get_followings('brunn3is'):
+for username in BlueBird().get_followings('brunn3is'):
     print(username)

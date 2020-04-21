@@ -3,12 +3,12 @@
 
 from setuptools import setup
 from setuptools import find_packages
-import polypus
+import bluebird
 
-setup(name='polypus',
-      version=polypus.__version__,
-      description='Social Media scraping with Python',
-      url='https://github.com/brunneis/polypus',
+setup(name='bluebird',
+      version=bluebird.__version__,
+      description='An unofficial Twitter SDK for Python',
+      url='https://github.com/brunneis/bluebird',
       author='Rodrigo Martínez',
       author_email='dev@brunneis.com',
       license='GNU General Public License v3.0',
