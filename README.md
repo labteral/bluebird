@@ -55,6 +55,11 @@ This parameter refers to the maximum allowed date. It has to be specified in the
 #### near
 It has to be specified with a `tuple` object composed of a text location and a range in miles (e.g., `('Santiago de Compostela', 15)`).
 
+#### match
+If not specified, the tweets will match every field.
+- `'any'` (the tweets must match at least one of the fields)
+
+
 ### Fields
 ---
 
