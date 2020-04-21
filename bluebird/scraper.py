@@ -218,12 +218,14 @@ class BlueBird:
 
             if match == 'any':
                 if encoded_query:
-                    encoded_query += ' OR ' + marginal_query
+                    encoded_query += ') OR (' + marginal_query
                 else:
-                    encoded_query = marginal_query
+                    encoded_query = '(' + marginal_query
             else:
                 encoded_query += ' ' + marginal_query
 
+        if match is not None:
+            encoded_query += ')'
 
         if since is not None:
             encoded_query += f' since:{since}'
