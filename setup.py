@@ -24,4 +24,4 @@ setup(name='bluebird',
           "Programming Language :: Python :: Implementation :: PyPy",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
-      install_requires=[])
+      install_requires=['requests', 'orderedset', 'lxml'])
