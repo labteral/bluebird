@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-from urllib.request import urlopen, Request
-import gzip
+import urllib3
 import json
 
+session = urllib3.PoolManager()
 
 class TwitterHttpHelper:
     @staticmethod
@@ -58,18 +58,10 @@ class TwitterHttpHelper:
 
     @staticmethod
     def get_json_response(url):
-        request = Request(url=url, headers=TwitterHttpHelper.get_json_header())
-        response = TwitterHttpHelper.get_response_from_request(request)
-        return json.loads(response)
+        r = session.request('GET', url=url, headers=TwitterHttpHelper.get_json_header())
+        return json.loads(r.data.decode('utf-8'))
 
     @staticmethod
     def get_html_response(url):
-        request = Request(url=url, headers=TwitterHttpHelper.get_html_header())
-        response = TwitterHttpHelper.get_response_from_request(request)
-        return response
-
-    @staticmethod
-    def get_response_from_request(request):
-        response = urlopen(request)
-        assert (response.info().get('Content-Encoding') == 'gzip')
-        return gzip.GzipFile(fileobj=response).read()
+        r = session.request('GET', url=url, headers=TwitterHttpHelper.get_html_header())
+        return r.data.decode('utf-8')
