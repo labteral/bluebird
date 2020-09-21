@@ -379,7 +379,12 @@ class BlueBird:
         encoded_query = BlueBird._encode_query(query)
 
         base_url = 'https://api.twitter.com/2/search/adaptive.json'
-        params = {'q': encoded_query, 'count': count, 'sorted_by_time': 'true', 'tweet_mode': 'extended'}
+        params = {
+            'q': encoded_query,
+            'count': count,
+            'sorted_by_time': 'true',
+            'tweet_mode': 'extended'
+        }
 
         url = BlueBird._update_url_with_params(base_url, params)
         print(url)
@@ -466,7 +471,12 @@ class BlueBird:
         encoded_query = BlueBird._encode_query(query)
 
         base_url = 'https://api.twitter.com/1.1/search/tweets.json'
-        params = {'q': encoded_query, 'count': count, 'result_type': 'recent', 'include_entities': 'false'}
+        params = {
+            'q': encoded_query,
+            'count': count,
+            'result_type': 'recent',
+            'include_entities': 'false'
+        }
         url = BlueBird._update_url_with_params(base_url, params)
 
         yield from self._get_tweets_1_1(url, deep, sleep_time, min_tweets)
@@ -491,7 +501,7 @@ class BlueBird:
 
         yield from self._get_tweets_1_1(url, deep, sleep_time, min_tweets)
 
-    def search(self, query, deep=False, count=100, sleep_time=0, min_tweets=0, mode=API_WEB):
+    def search(self, query, deep=False, count=100, sleep_time=0, min_tweets=0, mode=API_2):
         return getattr(self, f'_search_{mode}')(query, deep, count, sleep_time, min_tweets)
 
     def user_timeline(self,
@@ -501,10 +511,11 @@ class BlueBird:
                       include_replies=True,
                       sleep_time=0,
                       min_tweets=0,
-                      mode=API_WEB):
-        return getattr(self, f'_user_timeline_{mode}')(username, deep, count, include_replies, sleep_time, min_tweets)
+                      mode=API_2):
+        return getattr(self, f'_user_timeline_{mode}')(username, deep, count, include_replies,
+                                                       sleep_time, min_tweets)
 
-    def stream(self, query, sleep_time=0, mode=API_WEB):
+    def stream(self, query, sleep_time=0, mode=API_2):
         known_tweets = CircularOrderedSet(50)
         while True:
             try:
@@ -535,7 +546,8 @@ class BlueBird:
             has_more_items = content['has_more_items']
             min_position = content['min_position']
 
-            account_elements = root.xpath("//div[contains(@class, 'account') and @data-screen-name]")
+            account_elements = root.xpath(
+                "//div[contains(@class, 'account') and @data-screen-name]")
 
             for account in account_elements:
                 name = account.attrib['data-name']
@@ -575,7 +587,8 @@ class BlueBird:
                 yield screen_name
 
             try:
-                min_position = root.xpath("//div[@class='w-button-more']/a")[0].attrib['href'].split('cursor=')[1]
+                min_position = root.xpath(
+                    "//div[@class='w-button-more']/a")[0].attrib['href'].split('cursor=')[1]
             except IndexError:
                 has_more_items = False
 
