@@ -172,6 +172,11 @@ for tweet in BlueBird().stream(query)
     print(tweet)
 ```
 
+---
+---
+---
+> Warning! It seems that Twitter disabled old endpoints so the following functionalities may not work.
+
 ## List members
 
 ```python
