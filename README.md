@@ -175,7 +175,12 @@ for tweet in BlueBird().stream(query)
 ---
 ---
 ---
-> Warning! It seems that Twitter disabled old endpoints so the following functionalities may not work.
+
+> Warning! It seems that Twitter has disabled the old endpoints so the following functionalities may not work.
+
+---
+---
+---
 
 ## List members
 
