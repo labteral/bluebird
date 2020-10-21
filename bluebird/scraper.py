@@ -140,13 +140,13 @@ class BlueBird:
 
     def get_user_id(self, username):
         if username not in self.user_ids:
-            user_id = self.get_user_1(username)['id']
+            user_id = self.get_user_by_name(username)['id']
             self.user_ids[username] = user_id
         return self.user_ids[username]
 
     def get_screen_name(self, user_id):
         if user_id not in self.user_names:
-            screen_name = self.get_user_2(user_id)['screen_name']
+            screen_name = self.get_user_by_id(user_id)['screen_name']
             self.user_names[user_id] = screen_name
         return self.user_names[user_id]
 
