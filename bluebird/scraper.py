@@ -537,7 +537,6 @@ class BlueBird:
             content = HttpHelper.get_json_response(url)
 
             items_html = content['items_html']
-
             try:
                 root = document_fromstring(items_html)
             except ParserError:
@@ -573,10 +572,10 @@ class BlueBird:
             url = f'https://mobile.twitter.com/{username}/{target}?lang=en'
             if min_position:
                 url += f'&cursor={min_position}'
+                
             content = HttpHelper.get_html_response(url)
-
             try:
-                root = document_fromstring(content)
+                root = document_fromstring(bytes(content, encoding='utf-8'))
             except ParserError:
                 continue
 

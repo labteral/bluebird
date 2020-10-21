@@ -172,35 +172,6 @@ for tweet in BlueBird().stream(query)
     print(tweet)
 ```
 
----
----
----
-
-> Warning! It seems that Twitter has disabled the old endpoints so the following functionalities may not work.
-
----
----
----
-
-## List members
-
-```python
-BlueBird().get_list_members(username, list_name)
-```
-
-Example:
-
-```python
->>> for user in BlueBird().get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
-...     print(user)
-
-{'name': 'Eva Bravo', 'screen_name': 'EvaBravoBarco', 'id': '1116022190154113030'}
-{'name': 'Juan José Cortés', 'screen_name': 'JuanjoCortesHu', 'id': '1110994911741050888'}
-{'name': 'José Ignacio Echániz', 'screen_name': 'JIEchaniz', 'id': '1110628846242594820'}
-
-...
-```
-
 ## Followings
 
 ```python
@@ -235,6 +206,30 @@ Example:
 jsierradelarosa
 lafuentejuancar
 crismadrid011
+
+...
+```
+
+<br><br><br><br><br>
+
+> WARNING! It seems that Twitter has disabled the old endpoints so the following functionalities may not work.
+
+
+## List members
+
+```python
+BlueBird().get_list_members(username, list_name)
+```
+
+Example:
+
+```python
+>>> for user in BlueBird().get_list_members('dalvarez37', 'xiii-legislatura-congreso'):
+...     print(user)
+
+{'name': 'Eva Bravo', 'screen_name': 'EvaBravoBarco', 'id': '1116022190154113030'}
+{'name': 'Juan José Cortés', 'screen_name': 'JuanjoCortesHu', 'id': '1110994911741050888'}
+{'name': 'José Ignacio Echániz', 'screen_name': 'JIEchaniz', 'id': '1110628846242594820'}
 
 ...
 ```
