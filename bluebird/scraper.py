@@ -41,6 +41,7 @@ class BlueBird:
         self.guest_tokens = list()
         self._request_guest_token()
         self.user_ids = dict()
+        self.user_names = dict()
 
     @staticmethod
     def get_emojis(text):
@@ -129,15 +130,25 @@ class BlueBird:
 
         return data
 
-    def get_user(self, username):
+    def get_user_by_name(self, username):
         url = f'https://api.twitter.com/1.1/users/show.json?screen_name={username}'
+        return self._get_api_response(url)
+    
+    def get_user_by_id(self, user_id):
+        url = f'https://api.twitter.com/1.1/users/show.json?id={user_id}'
         return self._get_api_response(url)
 
     def get_user_id(self, username):
         if username not in self.user_ids:
-            user_id = self.get_user(username)['id']
+            user_id = self.get_user_by_name(username)['id']
             self.user_ids[username] = user_id
         return self.user_ids[username]
+
+    def get_screen_name(self, user_id):
+        if user_id not in self.user_names:
+            screen_name = self.get_user_by_id(user_id)['screen_name']
+            self.user_names[user_id] = screen_name
+        return self.user_names[user_id]
 
     @staticmethod
     def _update_url_with_params(url, params):
