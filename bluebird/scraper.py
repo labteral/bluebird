@@ -130,11 +130,11 @@ class BlueBird:
 
         return data
 
-    def get_user_1(self, username):
+    def get_user_by_name(self, username):
         url = f'https://api.twitter.com/1.1/users/show.json?screen_name={username}'
         return self._get_api_response(url)
     
-    def get_user_2(self, user_id):
+    def get_user_by_id(self, user_id):
         url = f'https://api.twitter.com/1.1/users/show.json?id={user_id}'
         return self._get_api_response(url)
 
