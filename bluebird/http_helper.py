@@ -5,7 +5,7 @@ from random import randint
 import urllib3
 import json
 
-session = urllib3.PoolManager()
+session = urllib3.PoolManager(maxsize=50, block=True)
 
 class TwitterHttpHelper:
     @staticmethod
