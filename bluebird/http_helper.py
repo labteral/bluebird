@@ -2,10 +2,17 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import urllib3
+from urllib3 import ProxyManager, PoolManager
 import json
+from os import environ
 
-session = urllib3.PoolManager(maxsize=50, block=True)
+if 'HTTPS_PROXY' in environ:
+    session = ProxyManager(environ['HTTPS_PROXY'], maxsize=100, block=True)
+elif 'HTTP_PROXY' in environ:
+    session = ProxyManager(environ['HTTP_PROXY'], maxsize=100, block=True)
+else:
+    session = PoolManager(maxsize=100, block=True)
+
 
 class TwitterHttpHelper:
     @staticmethod
