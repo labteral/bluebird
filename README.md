@@ -1,10 +1,6 @@
-<h1 align="center">
-<b>bluebird</b>
-</h1>
-
-<h3 align="center">
-<b>Unofficial Python client for Twitter</b>
-</h3>
+<p align="center">
+<img src="misc/bluebird.svg" alt="Bluebird Logo" width="150"/></a>
+</p>
 
 <p align="center">
     <a href="https://pepy.tech/project/bluebird/"><img alt="Downloads" src="https://img.shields.io/badge/dynamic/json?style=flat-square&maxAge=3600&label=downloads&query=$.total_downloads&url=https://api.pepy.tech/api/projects/bluebird"></a>
@@ -12,6 +8,10 @@
     <!--<a href="https://github.com/brunneis/pygram/releases"><img alt="GitHub releases" src="https://img.shields.io/github/release/brunneis/bluebird.svg?style=flat-square"></a>-->
     <a href="https://github.com/brunneis/bluebird/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/brunneis/bluebird.svg?style=flat-square&color=green"></a>
 </p>
+
+<h3 align="center">
+<b>An unofficial Twitter SDK for Python</b>
+</h3>
 
 <p align="center">
     <a href="https://www.buymeacoffee.com/brunneis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="35px"></a>
