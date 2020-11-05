@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-<b>An unofficial Twitter SDK for Python</b>
+<b>Unofficial Python client for Twitter</b>
 </h3>
 
 <p align="center">
