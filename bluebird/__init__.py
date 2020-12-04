@@ -3,4 +3,4 @@
 
 from .scraper import BlueBird
 
-__version__ = '0.0.8a'
+__version__ = '0.0.9a'
