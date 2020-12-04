@@ -121,7 +121,7 @@ class BlueBird:
                 error_message = data['errors'][0]['message']
                 if error_message == 'Forbidden.':
                     self._pop_guest_token()
-                elif error_message == 'Bad request.':
+                elif error_message == 'Bad request.' or error_message == "User not found.":
                     return
                 else:
                     self._rotate_guest_token()
